@@ -6,6 +6,7 @@ import { User } from "../../../database/models/UserSchema";
 import { mockNext, mockRequest, mockResponse } from "../../../mocks/mocks";
 import { type UserCredentials } from "../../../types";
 import { loginUser } from "./userControllers";
+import responses from "../../../utils/responses";
 
 beforeEach(() => jest.clearAllMocks());
 afterEach(() => jest.clearAllMocks());
@@ -103,7 +104,7 @@ describe("Given a loginUser controller", () => {
     test("Then it should signal so with an 'Internal Server Error.' public and private message and a status 500", async () => {
       const customError = new CustomError(
         "Internal server error",
-        500,
+        responses.internalServerError.statusCode,
         "Internal server error"
       );
 

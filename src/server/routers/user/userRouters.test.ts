@@ -7,6 +7,7 @@ import connectDatabase from "../../../database/connectDatabase";
 import { User } from "../../../database/models/UserSchema";
 import { type UserStructure, type UserCredentials } from "../../../types";
 import { app } from "../..";
+import responses from "../../../utils/responses";
 
 let server: MongoMemoryServer;
 
@@ -94,7 +95,7 @@ describe("Given a POST users/login endpoint", () => {
     });
 
     test("Then it should respond with status 200 and a token", async () => {
-      const expectedStatusCode = 200;
+      const expectedStatusCode = responses.success.statusCode;
       const expectedProperty = "token";
 
       const userCredentials = {

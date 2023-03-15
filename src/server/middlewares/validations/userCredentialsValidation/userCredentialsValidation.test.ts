@@ -1,5 +1,6 @@
 import { type Response } from "express";
 import { mockRequest, mockResponse } from "../../../../mocks/mocks";
+import responses from "../../../../utils/responses";
 import userCredentialsValidation from "./userCredentialsValidation";
 
 afterEach(() => {
@@ -12,7 +13,7 @@ describe("Given a userCredentialsValidation function", () => {
       const invalidEmail = "s@g.com";
 
       const expectedPrivateMessage = "Invalid user credentials";
-      const expectedStatus = 400;
+      const expectedStatus = responses.invalidUserCredentials.statusCode;
       const expectedPublicMessage =
         "email length must be at least 8 characters long";
 
@@ -47,7 +48,7 @@ describe("Given a userCredentialsValidation function", () => {
       const invalidPassword = "1234";
 
       const expectedPrivateMessage = "Invalid user credentials";
-      const expectedStatus = 400;
+      const expectedStatus = responses.invalidUserCredentials.statusCode;
       const expectedPublicMessage =
         "password length must be at least 8 characters long";
 

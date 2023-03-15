@@ -1,6 +1,7 @@
 import { type Response } from "express";
 import { CustomError } from "../../../CustomError/CustomError";
 import { mockNext, mockRequest, mockResponse } from "../../../mocks/mocks";
+import responses from "../../../utils/responses";
 import { generalError } from "./generalError";
 
 describe("Given a generalError function", () => {
@@ -18,7 +19,11 @@ describe("Given a generalError function", () => {
   describe("When it receives an error with the public message 'Bad request'", () => {
     test("Then it should show the client an error with message 'Bad request'", () => {
       const errorMessage = "Bad request";
-      const mockError = new CustomError("", 400, errorMessage);
+      const mockError = new CustomError(
+        "",
+        responses.invalidUserCredentials.statusCode,
+        errorMessage
+      );
 
       generalError(mockError, mockRequest, mockResponse as Response, mockNext);
 
@@ -36,7 +41,7 @@ describe("Given a generalError function", () => {
         invalidStatusCode,
         "Undetermined message"
       );
-      const expectedStatusCode = 500;
+      const expectedStatusCode = responses.internalServerError.statusCode;
 
       generalError(mockError, mockRequest, mockResponse as Response, mockNext);
 
@@ -47,7 +52,11 @@ describe("Given a generalError function", () => {
   describe("When it receives an error without a custom message defined", () => {
     test("Then it should show the client the default message 'Something went wrong'", () => {
       const errorMessage = "";
-      const mockError = new CustomError("", 400, errorMessage);
+      const mockError = new CustomError(
+        "",
+        responses.invalidUserCredentials.statusCode,
+        errorMessage
+      );
 
       generalError(mockError, mockRequest, mockResponse as Response, mockNext);
 

@@ -31,3 +31,19 @@ export const getPaintingById = async (
     handlePaintingErrors(next, (error as Error).message);
   }
 };
+
+export const deletePainting = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { idPainting } = req.params;
+
+  try {
+    await Painting.findByIdAndDelete(idPainting);
+
+    res.status(200).json({});
+  } catch (error: unknown) {
+    handlePaintingErrors(next, (error as Error).message);
+  }
+};

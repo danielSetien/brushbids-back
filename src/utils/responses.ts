@@ -8,6 +8,9 @@ interface Responses {
   internalServerError: {
     statusCode: number;
   };
+  unauthorized: {
+    statusCode: number;
+  };
 }
 
 const responses: Responses = {
@@ -19,6 +22,9 @@ const responses: Responses = {
   },
   internalServerError: {
     statusCode: 500,
+  },
+  unauthorized: {
+    statusCode: 401,
   },
 };
 

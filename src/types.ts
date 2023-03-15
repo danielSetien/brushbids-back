@@ -1,4 +1,5 @@
 import { type Request } from "express";
+import { type JwtPayload } from "jsonwebtoken";
 
 export interface CustomLoginRequest extends Request {
   body: {
@@ -44,4 +45,13 @@ export interface CustomMongoResponse {
 }
 export interface MongoInsertManyReturnedValue {
   object: CustomMongoResponse[];
+}
+
+export interface CustomRequest extends Request {
+  id: string;
+  username: string;
+}
+
+export interface CustomJwtPayload extends JwtPayload {
+  username: string;
 }

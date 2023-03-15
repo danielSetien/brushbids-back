@@ -9,7 +9,6 @@ import { loginUser } from "./userControllers";
 import responses from "../../../utils/responses";
 
 beforeEach(() => jest.clearAllMocks());
-afterEach(() => jest.clearAllMocks());
 
 describe("Given a loginUser controller", () => {
   describe("When it receives a request with an email 'unregistered@gmail.com' and password 'unimportant'", () => {

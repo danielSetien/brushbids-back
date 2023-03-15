@@ -4,29 +4,27 @@ import { CustomError } from "../../../CustomError/CustomError";
 import { type CustomJwtPayload, type CustomRequest } from "../../../types";
 
 export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
-  if (!req.header("Authorization")) {
-    const authenticationError = new CustomError(
-      "Missing authorization header",
-      401,
-      "Authentication failure"
-    );
+  const authHeader = req.header("Authoriation");
 
+  const authenticationError = new CustomError(
+    "Missing authorization header",
+    401,
+    "Authentication failure"
+  );
+
+  if (!authHeader) {
     next(authenticationError);
+
     return;
   }
 
-  if (!req.header("Authorization")?.includes("Bearer")) {
-    const authorizationError = new CustomError(
-      "Missing authorization header",
-      401,
-      "Authentication failure"
-    );
+  if (!authHeader.includes("Bearer")) {
+    next(authenticationError);
 
-    next(authorizationError);
     return;
   }
 
-  const token = req.header("Authorization"?.replace(/^Bearers\s*/, ""));
+  const token = req.header("Authorization"?.replace(/^Bearer\s*/, ""));
   try {
     const { username } = jwt.verify(
       token!,

@@ -41,7 +41,7 @@ export const deletePainting = async (
   const { idPainting } = req.params;
 
   try {
-    await Painting.findByIdAndDelete(idPainting);
+    await Painting.findByIdAndDelete(idPainting).exec();
 
     res.status(responses.success.statusCode).json({});
   } catch (error: unknown) {

@@ -87,4 +87,17 @@ describe("Given a GET paintings/ endpoint", () => {
       );
     });
   });
+
+  describe("When it receives a request to delete a painting with a given id", () => {
+    const deletePaintingsEndpoint = "/paintings/";
+    test("Then it should respond with a status 200 response", async () => {
+      const { _id: id } = await Painting.create(mockPaintings[0]);
+
+      const expectedStatusResponse = responses.success.statusCode;
+
+      await request(app)
+        .delete(`${deletePaintingsEndpoint}${id as unknown as string}`)
+        .expect(expectedStatusResponse);
+    });
+  });
 });

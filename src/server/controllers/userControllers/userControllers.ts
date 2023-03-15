@@ -6,6 +6,7 @@ import { type CustomLoginRequest } from "../../../types.js";
 import { User } from "../../../database/models/UserSchema.js";
 import { CustomError } from "../../../CustomError/CustomError.js";
 import { handleLoginRejections } from "../../middlewares/handleLoginRejections/handleLoginRejections.js";
+import responses from "../../../utils/responses.js";
 
 export const loginUser = async (
   req: CustomLoginRequest,
@@ -44,11 +45,11 @@ export const loginUser = async (
       expiresIn: "2d",
     });
 
-    res.status(200).json({ token });
+    res.status(responses.success.statusCode).json({ token });
   } catch (error: unknown) {
     const thrownError = new CustomError(
       (error as Error).message,
-      500,
+      responses.internalServerError.statusCode,
       "Internal Server Error."
     );
 

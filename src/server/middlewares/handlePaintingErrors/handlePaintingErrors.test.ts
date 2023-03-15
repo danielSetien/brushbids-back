@@ -1,5 +1,6 @@
 import { CustomError } from "../../../CustomError/CustomError";
 import { mockNext } from "../../../mocks/mocks";
+import responses from "../../../utils/responses";
 import handlePaintingErrors from "./handlePaintingErrors";
 
 afterEach(() => {
@@ -13,7 +14,7 @@ describe("Given a handlePaintingErrors function", () => {
 
       const fetchPaintingError = new CustomError(
         errorMessage,
-        500,
+        responses.internalServerError.statusCode,
         "Internal Server Error."
       );
 
@@ -31,7 +32,7 @@ describe("Given a handlePaintingErrors function", () => {
 
       const fetchPaintingError = new CustomError(
         expectedErrorMessage,
-        500,
+        responses.internalServerError.statusCode,
         "Internal Server Error"
       );
 

@@ -8,6 +8,7 @@ import { mockPaintings } from "../../../mocks/mocks";
 import { deleteDatabaseInsertedUnpredictableProperties } from "../../../utils/testUtils";
 import { type MongoInsertManyReturnedValue } from "../../../types";
 import { type SupertestPaintingRequestResponse } from "../../../utils/testUtils/types";
+import responses from "../../../utils/responses";
 
 let server: MongoMemoryServer;
 
@@ -47,7 +48,7 @@ describe("Given a GET paintings/ endpoint", () => {
     });
 
     test("Then it should respond with a status 200 response", async () => {
-      const expectedStatusResponse = 200;
+      const expectedStatusResponse = responses.success.statusCode;
 
       await request(app)
         .get(getPaintingsEndpoint)

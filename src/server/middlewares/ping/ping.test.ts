@@ -1,11 +1,12 @@
 import { type Response } from "express";
 import { mockNext, mockRequest, mockResponse } from "../../../mocks/mocks";
+import responses from "../../../utils/responses";
 import ping from "./ping";
 
 describe("Given a ping middleware", () => {
   describe("When it receives a request", () => {
     test("Then it should respond with a status 200 and a 'pong 🏓' message", async () => {
-      const expectedStatusCode = 200;
+      const expectedStatusCode = responses.success.statusCode;
 
       ping(mockRequest, mockResponse as Response, mockNext);
 

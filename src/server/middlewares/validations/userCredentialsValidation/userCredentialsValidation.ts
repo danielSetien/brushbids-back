@@ -2,6 +2,7 @@ import { type NextFunction, type Response } from "express";
 import { Joi } from "express-validation";
 import { CustomError } from "../../../../CustomError/CustomError.js";
 import { type CustomLoginRequest } from "../../../../types.js";
+import responses from "../../../../utils/responses.js";
 
 const userCredentialsValidation = (
   request: CustomLoginRequest,
@@ -27,7 +28,7 @@ const userCredentialsValidation = (
 
     const invalidCredentialsError = new CustomError(
       "Invalid user credentials",
-      400,
+      responses.invalidUserCredentials.statusCode,
       userFeedbackMessages
     );
 

@@ -1,5 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { Painting } from "../../../database/models/PaintingSchema.js";
+import responses from "../../../utils/responses.js";
 import handlePaintingErrors from "../../middlewares/handlePaintingErrors/handlePaintingErrors.js";
 
 export const getPaintings = async (
@@ -10,7 +11,7 @@ export const getPaintings = async (
   try {
     const paintings = await Painting.find().exec();
 
-    res.status(200).json({ paintings });
+    res.status(responses.success.statusCode).json({ paintings });
   } catch (error: unknown) {
     handlePaintingErrors(next, (error as Error).message);
   }
@@ -26,7 +27,7 @@ export const getPaintingById = async (
   try {
     const painting = await Painting.findById(idPainting).exec();
 
-    res.status(200).json({ painting });
+    res.status(responses.success.statusCode).json({ painting });
   } catch (error: unknown) {
     handlePaintingErrors(next, (error as Error).message);
   }
@@ -42,7 +43,7 @@ export const deletePainting = async (
   try {
     await Painting.findByIdAndDelete(idPainting);
 
-    res.status(200).json({});
+    res.status(responses.success.statusCode).json({});
   } catch (error: unknown) {
     handlePaintingErrors(next, (error as Error).message);
   }

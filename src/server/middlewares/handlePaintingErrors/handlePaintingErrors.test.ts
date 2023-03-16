@@ -14,7 +14,7 @@ describe("Given a handlePaintingErrors function", () => {
 
       const fetchPaintingError = new CustomError(
         errorMessage,
-        responses.internalServerError.statusCode,
+        responses.statusCode.internalServerError,
         "Internal Server Error."
       );
 
@@ -32,7 +32,7 @@ describe("Given a handlePaintingErrors function", () => {
 
       const fetchPaintingError = new CustomError(
         expectedErrorMessage,
-        responses.internalServerError.statusCode,
+        responses.statusCode.internalServerError,
         "Internal Server Error"
       );
 

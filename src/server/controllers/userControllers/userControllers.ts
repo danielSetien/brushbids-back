@@ -45,11 +45,11 @@ export const loginUser = async (
       expiresIn: "2d",
     });
 
-    res.status(responses.success.statusCode).json({ token });
+    res.status(responses.statusCode.success).json({ token });
   } catch (error: unknown) {
     const thrownError = new CustomError(
       (error as Error).message,
-      responses.internalServerError.statusCode,
+      responses.statusCode.internalServerError,
       "Internal Server Error."
     );
 

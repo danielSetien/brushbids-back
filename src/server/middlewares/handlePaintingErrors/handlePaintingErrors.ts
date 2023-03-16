@@ -8,7 +8,7 @@ const handlePaintingErrors = (
 ) => {
   const fetchPaintingError = new CustomError(
     errorMessage,
-    responses.internalServerError.statusCode,
+    responses.statusCode.internalServerError,
     "Internal Server Error."
   );
 

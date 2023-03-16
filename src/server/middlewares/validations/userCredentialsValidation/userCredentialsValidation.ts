@@ -28,7 +28,7 @@ const userCredentialsValidation = (
 
     const invalidCredentialsError = new CustomError(
       "Invalid user credentials",
-      responses.invalidUserCredentials.statusCode,
+      responses.statusCode.invalidUserCredentials,
       userFeedbackMessages
     );
 

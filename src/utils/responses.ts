@@ -1,30 +1,20 @@
 interface Responses {
-  success: {
-    statusCode: number;
-  };
-  invalidUserCredentials: {
-    statusCode: number;
-  };
-  internalServerError: {
-    statusCode: number;
-  };
-  unauthorized: {
-    statusCode: number;
+  statusCode: {
+    success: number;
+    invalidUserCredentials: number;
+    internalServerError: number;
+    unauthorized: number;
+    created: number;
   };
 }
 
 const responses: Responses = {
-  success: {
-    statusCode: 200,
-  },
-  invalidUserCredentials: {
-    statusCode: 400,
-  },
-  internalServerError: {
-    statusCode: 500,
-  },
-  unauthorized: {
-    statusCode: 401,
+  statusCode: {
+    success: 200,
+    invalidUserCredentials: 400,
+    internalServerError: 500,
+    unauthorized: 401,
+    created: 201,
   },
 };
 

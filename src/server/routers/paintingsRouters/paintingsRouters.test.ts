@@ -48,7 +48,7 @@ describe("Given a GET paintings/ endpoint", () => {
     });
 
     test("Then it should respond with a status 200 response", async () => {
-      const expectedStatusResponse = responses.success.statusCode;
+      const expectedStatusResponse = responses.statusCode.success;
 
       await request(app)
         .get(getPaintingsEndpoint)
@@ -93,7 +93,7 @@ describe("Given a GET paintings/ endpoint", () => {
     test("Then it should respond with a status 200 response", async () => {
       const { _id: id } = await Painting.create(mockPaintings[0]);
 
-      const expectedStatusResponse = responses.success.statusCode;
+      const expectedStatusResponse = responses.statusCode.success;
 
       await request(app)
         .delete(`${deletePaintingsEndpoint}${id as unknown as string}`)

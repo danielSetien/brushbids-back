@@ -50,6 +50,7 @@ export interface MongoInsertManyReturnedValue {
 export interface CustomRequest extends Request {
   id: string;
   username: string;
+  body: Painting;
 }
 
 export interface CustomJwtPayload extends JwtPayload {

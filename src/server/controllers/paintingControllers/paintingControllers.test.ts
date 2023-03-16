@@ -29,7 +29,7 @@ const expectedThrownError = new CustomError(
 describe("Given a getPaintings controller", () => {
   describe("When it receives a response", () => {
     test("Then it should call its response function's status method with value 200", async () => {
-      const expectedStatusCode = responses.success.statusCode;
+      const expectedStatusCode = responses.statusCode.success;
 
       Painting.find = jest.fn().mockImplementationOnce(() => ({
         exec: jest.fn().mockReturnValue(mockPaintings),
@@ -73,7 +73,7 @@ describe("Given a getPaintingById controller", () => {
 
   describe("When it receives a request with a painting's identification", () => {
     test("Then it should call its response function's status method with value 200", async () => {
-      const expectedStatusCode = responses.success.statusCode;
+      const expectedStatusCode = responses.statusCode.success;
 
       Painting.findById = jest.fn().mockImplementationOnce(() => ({
         exec: jest.fn().mockReturnValue(mockPaintings[0]),
@@ -113,7 +113,7 @@ describe("Given a getPaintingById controller", () => {
 describe("Given a deletePainting controller", () => {
   describe("When it receives a request with a painting's identification", () => {
     test("Then it should call its response function's status method with value 200", async () => {
-      const expectedStatusCode = responses.success.statusCode;
+      const expectedStatusCode = responses.statusCode.success;
 
       Painting.findByIdAndDelete = jest.fn().mockImplementationOnce(() => ({
         exec: jest.fn(),

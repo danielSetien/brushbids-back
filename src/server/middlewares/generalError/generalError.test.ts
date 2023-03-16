@@ -21,7 +21,7 @@ describe("Given a generalError function", () => {
       const errorMessage = "Bad request";
       const mockError = new CustomError(
         "",
-        responses.invalidUserCredentials.statusCode,
+        responses.statusCode.invalidUserCredentials,
         errorMessage
       );
 
@@ -41,7 +41,7 @@ describe("Given a generalError function", () => {
         invalidStatusCode,
         "Undetermined message"
       );
-      const expectedStatusCode = responses.internalServerError.statusCode;
+      const expectedStatusCode = responses.statusCode.internalServerError;
 
       generalError(mockError, mockRequest, mockResponse as Response, mockNext);
 
@@ -54,7 +54,7 @@ describe("Given a generalError function", () => {
       const errorMessage = "";
       const mockError = new CustomError(
         "",
-        responses.invalidUserCredentials.statusCode,
+        responses.statusCode.invalidUserCredentials,
         errorMessage
       );
 

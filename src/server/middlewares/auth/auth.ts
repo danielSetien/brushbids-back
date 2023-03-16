@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 import { type NextFunction, type Response } from "express";
-import { CustomError } from "../../../CustomError/CustomError";
+import { CustomError } from "../../../CustomError/CustomError.js";
 import { type CustomJwtPayload, type CustomRequest } from "../../../types";
 
 export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
-  const authHeader = req.header("Authoriation");
+  const authHeader = req.header("Authorization");
 
   const authenticationError = new CustomError(
     "Missing authorization header",

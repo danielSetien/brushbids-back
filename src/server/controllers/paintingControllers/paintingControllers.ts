@@ -1,8 +1,12 @@
+import "../../../loadEnvironments.js";
 import { type NextFunction, type Request, type Response } from "express";
+import fs from "fs/promises";
+import path from "path";
 import { Painting } from "../../../database/models/PaintingSchema.js";
 import { type CustomRequest } from "../../../types.js";
 import responses from "../../../utils/responses.js";
 import handlePaintingErrors from "../../middlewares/handlePaintingErrors/handlePaintingErrors.js";
+import supabase from "../../middlewares/imageBackup/imageBackup.js";
 
 export const getPaintings = async (
   req: Request,
@@ -55,10 +59,28 @@ export const createPainting = async (
   res: Response,
   next: NextFunction
 ) => {
+  const bucketName = process.env.SUPABASE_BUCKET!;
+  const localStorageDirectory = process.env.LOCAL_STORAGE_DIRECTORY!;
   try {
     const newPainting = req.body;
 
-    await Painting.create({ newPainting });
+    const imageName = req.file?.filename;
+
+    if (imageName) {
+      const image = await fs.readFile(
+        path.join(localStorageDirectory, imageName)
+      );
+
+      await supabase.storage.from(bucketName).upload(imageName, image);
+    }
+
+    const {
+      data: { publicUrl: imageUrl },
+    } = supabase.storage.from(bucketName).getPublicUrl(imageName!);
+
+    const newDatabasePainting = { newPainting, imageUrl };
+
+    await Painting.create(newDatabasePainting);
 
     res.status(responses.statusCode.created).json({ newPainting });
   } catch (error: unknown) {

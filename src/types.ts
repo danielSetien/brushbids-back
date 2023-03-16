@@ -17,7 +17,7 @@ export interface UserStructure extends UserCredentials {
   username: string;
 }
 
-export interface Painting {
+export interface PaintingStructure {
   author: string;
   name: string;
   year: string;
@@ -38,7 +38,7 @@ export interface Painting {
   image: string;
 }
 
-export type Paintings = Painting[];
+export type Paintings = PaintingStructure[];
 
 export interface CustomMongoResponse {
   id: string;
@@ -50,7 +50,7 @@ export interface MongoInsertManyReturnedValue {
 export interface CustomRequest extends Request {
   id: string;
   username: string;
-  body: Painting;
+  body: PaintingStructure;
 }
 
 export interface CustomJwtPayload extends JwtPayload {

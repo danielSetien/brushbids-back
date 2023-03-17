@@ -26,14 +26,14 @@ export interface PaintingStructure {
   size: string;
   medium: string;
   materials: string;
-  unique: boolean;
-  certificate: boolean;
+  unique: string;
+  certificate: string;
   rarity: string;
   condition: string;
-  signature: boolean;
-  price: number;
-  frame: boolean;
-  highlightOrder: number;
+  signature: string;
+  price: string;
+  frame: string;
+  highlightOrder: string;
   summary: string;
   image: string;
 }

@@ -1,5 +1,6 @@
 import request from "supertest";
 import mongoose from "mongoose";
+import crypto from "crypto";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import connectDatabase from "../../../database/connectDatabase";
 import { app } from "../..";
@@ -22,9 +23,11 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-describe("Given a GET paintings/ endpoint", () => {
-  const getPaintingsEndpoint = "/paintings/";
+const paintingsEndpoint = "/paintings/";
 
+const painting = mockPaintings[0];
+
+describe("Given a GET paintings/ endpoint", () => {
   describe("When it receives a request to get a list of 2 paintings", () => {
     beforeAll(async () => {
       await Painting.insertMany(mockPaintings);
@@ -34,7 +37,7 @@ describe("Given a GET paintings/ endpoint", () => {
       const expectedPaintingsResponse = mockPaintings;
 
       const response: SupertestPaintingRequestResponse = await request(app).get(
-        getPaintingsEndpoint
+        paintingsEndpoint
       );
 
       const predictablePaintingsResponse = response.body.paintings.map(
@@ -50,9 +53,7 @@ describe("Given a GET paintings/ endpoint", () => {
     test("Then it should respond with a status 200 response", async () => {
       const expectedStatusResponse = responses.statusCode.success;
 
-      await request(app)
-        .get(getPaintingsEndpoint)
-        .expect(expectedStatusResponse);
+      await request(app).get(paintingsEndpoint).expect(expectedStatusResponse);
     });
   });
 
@@ -73,7 +74,7 @@ describe("Given a GET paintings/ endpoint", () => {
       const paintingId = (mongoReturnedDocument as MongoInsertManyReturnedValue)
         .object[0].id;
 
-      const getPaintingByIdFullRoute = `${getPaintingsEndpoint}${paintingId}`;
+      const getPaintingByIdFullRoute = `${paintingsEndpoint}${paintingId}`;
 
       const response: SupertestPaintingRequestResponse = await request(app).get(
         getPaintingByIdFullRoute
@@ -91,15 +92,61 @@ describe("Given a GET paintings/ endpoint", () => {
 
 describe("Given a DELETE paintings/ endpoint", () => {
   describe("When it receives a request to delete a painting with a given id", () => {
-    const deletePaintingsEndpoint = "/paintings/";
     test("Then it should respond with a status 200 response", async () => {
       const { _id: id } = await Painting.create(mockPaintings[0]);
 
       const expectedStatusResponse = responses.statusCode.success;
 
       await request(app)
-        .delete(`${deletePaintingsEndpoint}${id as unknown as string}`)
+        .delete(`${paintingsEndpoint}${id as unknown as string}`)
         .expect(expectedStatusResponse);
+    });
+  });
+});
+
+describe("Given a POST paintings/ endpoint", () => {
+  describe("When it receives a request with a painting", () => {
+    test("Then it should respond with status 201 and a painting", async () => {
+      const expectedStatusCode = responses.statusCode.created;
+      const createPaintingEndpoint = "/paintings/create";
+      const appendedSuffix = "random";
+
+      crypto.randomUUID = jest.fn().mockReturnValue(appendedSuffix);
+
+      const expectedResponseBody = { newPainting: painting };
+
+      const response = await request(app)
+        .post(createPaintingEndpoint)
+        .field("author", "Mary Heilmann")
+        .field("name", "New Line Up")
+        .field("year", "2018")
+        .field("gallery", "Private collection")
+        .field("technique", "Oil on canvas")
+        .field("size", "40 x 50 in")
+        .field("medium", "Painting")
+        .field("materials", "Oil paint, canvas")
+        .field("unique", "true")
+        .field("certificate", "true")
+        .field("rarity", "unique")
+        .field("condition", "excellent")
+        .field("signature", "true")
+        .field("price", "28000")
+        .field("frame", "false")
+        .field("highlightOrder", "1")
+        .field(
+          "summary",
+          "Colorful abstract painting with horizontal lines and curved shapes"
+        )
+        .field(
+          "image",
+          "https://icqwpkxwddqofeibjqcj.supabase.co/storage/v1/object/public/paitings/newLineUp.png?t=2023-03-11T16%3A09%3A57.512Z"
+        )
+        .attach("image", Buffer.from("uploads"), {
+          filename: "paintingImage.jpg",
+        })
+        .expect(expectedStatusCode);
+
+      expect(response.body).toStrictEqual(expectedResponseBody);
     });
   });
 });

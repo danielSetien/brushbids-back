@@ -15,6 +15,6 @@ paintingsRouter.get("/:idPainting", getPaintingById);
 
 paintingsRouter.delete("/:idPainting", deletePainting);
 
-paintingsRouter.post("/", upload.single("image"), createPainting);
+paintingsRouter.post("/create/", upload.single("image"), createPainting);
 
 export default paintingsRouter;

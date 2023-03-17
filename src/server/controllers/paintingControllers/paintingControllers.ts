@@ -78,7 +78,7 @@ export const createPainting = async (
       data: { publicUrl: imageUrl },
     } = supabase.storage.from(bucketName).getPublicUrl(imageName!);
 
-    const newDatabasePainting = { newPainting, imageUrl };
+    const newDatabasePainting = { ...newPainting, image: imageUrl };
 
     await Painting.create(newDatabasePainting);
 

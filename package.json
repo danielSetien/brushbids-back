@@ -11,9 +11,10 @@
     "start:dev": "node --watch dist/index.js",
     "prepare": "husky install  && chmod ug+x .husky/*",
     "eslint-audit": "eslint --ignore-path .gitignore . --max-warnings 0",
-    "test": "jest",
-    "test:dev": "jest --watch",
-    "test:coverage": "jest --coverage --watchAll=false"
+    "test": "npm run test:unit && npm run test:integration",
+    "test:coverage": "npm run test:unit -- --coverage --watchAll=false && npm run test:integration -- --coverage --watchAll=false",
+    "test:unit": "jest --config=jest.config.cjs",
+    "test:integration": "jest --config=jest.integration.config.cjs"
   },
   "keywords": [],
   "author": "",

@@ -3,19 +3,15 @@ import { Schema, model } from "mongoose";
 export const PaintingSchema = new Schema({
   author: {
     type: String,
-    required: true,
   },
   name: {
     type: String,
-    required: true,
   },
   year: {
     type: String,
-    required: true,
   },
   gallery: {
     type: String,
-    required: true,
   },
   technique: {
     type: String,
@@ -30,11 +26,10 @@ export const PaintingSchema = new Schema({
     type: String,
   },
   unique: {
-    type: Boolean,
-    required: true,
+    type: String,
   },
   certificate: {
-    type: Boolean,
+    type: String,
   },
   rarity: {
     type: String,
@@ -43,16 +38,16 @@ export const PaintingSchema = new Schema({
     type: String,
   },
   signature: {
-    type: Boolean,
+    type: String,
   },
   price: {
-    type: Number,
+    type: String,
   },
   frame: {
-    type: Boolean,
+    type: String,
   },
   highlightOrder: {
-    type: Number,
+    type: String,
   },
   summary: {
     type: String,
@@ -61,10 +56,10 @@ export const PaintingSchema = new Schema({
     type: String,
   },
   width: {
-    type: Number,
+    type: String,
   },
   height: {
-    type: Number,
+    type: String,
   },
 });
 

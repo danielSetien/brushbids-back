@@ -15,10 +15,11 @@ const multerConfig = {
       callback(null, filename);
     },
   }),
+};
 
+export const upload = multer({
+  ...multerConfig,
   limits: {
     fileSize: 1024 * 1024 * 8,
   },
-};
-
-export const upload = multer(multerConfig);
+});

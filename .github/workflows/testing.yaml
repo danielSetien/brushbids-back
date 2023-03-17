@@ -15,5 +15,9 @@ jobs:
         run: npm ci
 
       - name: 🧪 Testing
-        run: npm test -- --passWithNoTests
-        #env:
+        run: npm test
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_BUCKET: ${{ secrets.SUPABASE_BUCKET }}
+          LOCAL_STORAGE_DIRECTORY: ${{ secrets.LOCAL_STORAGE_DIRECTORY }}

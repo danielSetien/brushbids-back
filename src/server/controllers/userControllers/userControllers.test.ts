@@ -103,7 +103,7 @@ describe("Given a loginUser controller", () => {
     test("Then it should signal so with an 'Internal Server Error.' public and private message and a status 500", async () => {
       const customError = new CustomError(
         "Internal server error",
-        responses.internalServerError.statusCode,
+        responses.statusCode.internalServerError,
         "Internal server error"
       );
 

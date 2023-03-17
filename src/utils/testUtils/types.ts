@@ -1,13 +1,13 @@
-import { type Painting, type Paintings } from "../../types";
+import { type PaintingStructure, type Paintings } from "../../types";
 
-export interface PaintingSupertestResponse extends Painting {
+export interface PaintingSupertestResponse extends PaintingStructure {
   id?: string;
   __v?: string;
 }
 
 export interface SupertestPaintingRequestResponse {
   body: {
-    painting: Painting;
+    painting: PaintingStructure;
     paintings: Paintings;
   };
 }

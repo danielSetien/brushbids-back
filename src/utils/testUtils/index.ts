@@ -1,9 +1,9 @@
-import { type Painting } from "../../types";
+import { type PaintingStructure } from "../../types";
 import { type PaintingSupertestResponse } from "./types";
 
 export const deleteDatabaseInsertedUnpredictableProperties = (
   painting: PaintingSupertestResponse
-): Painting => {
+): PaintingStructure => {
   delete painting.id;
   delete painting.__v;
 

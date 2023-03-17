@@ -17,7 +17,7 @@ export interface UserStructure extends UserCredentials {
   username: string;
 }
 
-export interface Painting {
+export interface PaintingStructure {
   author: string;
   name: string;
   year: string;
@@ -26,19 +26,19 @@ export interface Painting {
   size: string;
   medium: string;
   materials: string;
-  unique: boolean;
-  certificate: boolean;
+  unique: string;
+  certificate: string;
   rarity: string;
   condition: string;
-  signature: boolean;
-  price: number;
-  frame: boolean;
-  highlightOrder: number;
+  signature: string;
+  price: string;
+  frame: string;
+  highlightOrder: string;
   summary: string;
   image: string;
 }
 
-export type Paintings = Painting[];
+export type Paintings = PaintingStructure[];
 
 export interface CustomMongoResponse {
   id: string;
@@ -50,6 +50,7 @@ export interface MongoInsertManyReturnedValue {
 export interface CustomRequest extends Request {
   id: string;
   username: string;
+  body: PaintingStructure;
 }
 
 export interface CustomJwtPayload extends JwtPayload {

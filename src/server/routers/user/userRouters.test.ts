@@ -56,7 +56,7 @@ describe("Given a POST users/login endpoint", () => {
     });
 
     test("Then it should respond with status 401 and an error message", async () => {
-      const expectedStatusCode = 401;
+      const expectedStatusCode = responses.statusCode.unauthorized;
       const wrongPassword = "wrongPassword";
       const expectedResponse = {
         error:
@@ -95,7 +95,7 @@ describe("Given a POST users/login endpoint", () => {
     });
 
     test("Then it should respond with status 200 and a token", async () => {
-      const expectedStatusCode = responses.success.statusCode;
+      const expectedStatusCode = responses.statusCode.success;
       const expectedProperty = "token";
 
       const userCredentials = {

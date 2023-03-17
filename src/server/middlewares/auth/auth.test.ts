@@ -9,7 +9,7 @@ import auth from "./auth";
 
 const authenticationError = new CustomError(
   "Missing authorization header",
-  responses.unauthorized.statusCode,
+  responses.statusCode.unauthorized,
   "Authentication failure"
 );
 

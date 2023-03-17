@@ -13,7 +13,7 @@ describe("Given a userCredentialsValidation function", () => {
       const invalidEmail = "s@g.com";
 
       const expectedPrivateMessage = "Invalid user credentials";
-      const expectedStatus = responses.invalidUserCredentials.statusCode;
+      const expectedStatus = responses.statusCode.invalidUserCredentials;
       const expectedPublicMessage =
         "email length must be at least 8 characters long";
 
@@ -48,7 +48,7 @@ describe("Given a userCredentialsValidation function", () => {
       const invalidPassword = "1234";
 
       const expectedPrivateMessage = "Invalid user credentials";
-      const expectedStatus = responses.invalidUserCredentials.statusCode;
+      const expectedStatus = responses.statusCode.invalidUserCredentials;
       const expectedPublicMessage =
         "password length must be at least 8 characters long";
 

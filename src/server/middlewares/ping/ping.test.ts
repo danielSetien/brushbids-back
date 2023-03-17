@@ -6,7 +6,7 @@ import ping from "./ping";
 describe("Given a ping middleware", () => {
   describe("When it receives a request", () => {
     test("Then it should respond with a status 200 and a 'pong 🏓' message", async () => {
-      const expectedStatusCode = responses.success.statusCode;
+      const expectedStatusCode = responses.statusCode.success;
 
       ping(mockRequest, mockResponse as Response, mockNext);
 

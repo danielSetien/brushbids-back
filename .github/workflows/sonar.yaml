@@ -16,7 +16,12 @@ jobs:
       - name: Node Modules
         run: npm ci
       - name: Coverage
-        run: npm run test:coverage -- --passWithNoTests
+        run: npm run test:coverage
+        env:
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_BUCKET: ${{ secrets.SUPABASE_BUCKET }}
+          LOCAL_STORAGE_DIRECTORY: ${{ secrets.LOCAL_STORAGE_DIRECTORY }}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

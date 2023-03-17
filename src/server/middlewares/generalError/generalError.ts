@@ -14,6 +14,6 @@ export const generalError = (
   debug(error.message);
 
   res
-    .status(error.statusCode || responses.internalServerError.statusCode)
+    .status(error.statusCode || responses.statusCode.internalServerError)
     .json({ error: error.publicMessage || "Something went wrong" });
 };

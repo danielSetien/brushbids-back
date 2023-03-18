@@ -78,11 +78,15 @@ export const createPainting = async (
       data: { publicUrl: imageUrl },
     } = supabase.storage.from(bucketName).getPublicUrl(imageName!);
 
-    const newDatabasePainting = { ...newPainting, image: imageUrl };
+    const image = imageUrl;
+
+    const newDatabasePainting = { ...newPainting, image };
 
     await Painting.create(newDatabasePainting);
 
-    res.status(responses.statusCode.created).json({ newPainting });
+    res
+      .status(responses.statusCode.created)
+      .json({ newPainting: { ...newPainting, image } });
   } catch (error: unknown) {
     handlePaintingErrors(next, (error as Error).message);
   }

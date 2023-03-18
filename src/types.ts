@@ -36,6 +36,8 @@ export interface PaintingStructure {
   highlightOrder: string;
   summary: string;
   image: string;
+  height: string;
+  width: string;
 }
 
 export type Paintings = PaintingStructure[];
@@ -51,6 +53,7 @@ export interface CustomRequest extends Request {
   id: string;
   username: string;
   body: PaintingStructure;
+  file?: Express.Multer.File;
 }
 
 export interface CustomJwtPayload extends JwtPayload {

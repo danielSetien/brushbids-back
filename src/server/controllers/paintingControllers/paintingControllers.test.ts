@@ -1,5 +1,6 @@
 import { type Response } from "express";
 import fs from "fs/promises";
+import sizeOf from "image-size";
 import { CustomError } from "../../../CustomError/CustomError";
 import { Painting } from "../../../database/models/PaintingSchema";
 import {
@@ -28,6 +29,19 @@ const expectedThrownError = new CustomError(
   thrownStatusCode,
   thrownPublicErrorMessage
 );
+
+const mockDimensions = {
+  width: "200",
+  height: "200",
+};
+
+jest.mock("image-size", () => ({
+  __esModule: true,
+  default: jest.fn().mockReturnValue({
+    width: "200",
+    height: "200",
+  }),
+}));
 
 describe("Given a getPaintings controller", () => {
   describe("When it receives a response", () => {
@@ -142,23 +156,22 @@ describe("Given a deletePainting controller", () => {
 });
 
 describe("Given a createPainting controller", () => {
-  const req: Partial<CustomRequest> = {
-    body: mockPaintings[0],
+  const mockFile = {
+    filename: mockPaintings[0].name,
+  };
+
+  const submittedPainting = mockPaintings[0];
+
+  const req = {
+    body: submittedPainting,
+    file: {
+      buffer: mockDimensions,
+    },
   };
 
   describe("When it receives a request with a painting", () => {
-    const mockFile = {
-      filename: mockPaintings[0].name,
-    };
-
-    const submittedPainting = mockPaintings[0];
-
     test("Then it should call its response function's status method with value 201", async () => {
       const expectedStatusCode = responses.statusCode.created;
-
-      const req = {
-        body: submittedPainting,
-      };
 
       const mockResponse: Partial<Response> = {
         status: jest.fn().mockReturnThis(),
@@ -170,7 +183,7 @@ describe("Given a createPainting controller", () => {
       Painting.create = jest.fn().mockReturnValue({});
 
       await createPainting(
-        req as CustomRequest,
+        req as unknown as CustomRequest,
         mockResponse as Response,
         mockNext
       );
@@ -178,11 +191,12 @@ describe("Given a createPainting controller", () => {
       expect(mockResponse.status).toHaveBeenCalledWith(expectedStatusCode);
     });
 
-    test("Then it should call its response function's json method with the created paintings", async () => {
+    test("Then it should call its response function's json method with the created painting", async () => {
       const req = {
         body: submittedPainting,
         file: {
           filename: "haha-salu2",
+          buffer: mockDimensions,
         },
       };
 
@@ -206,7 +220,7 @@ describe("Given a createPainting controller", () => {
       Painting.create = jest.fn().mockReturnValue({});
 
       await createPainting(
-        req as CustomRequest,
+        req as unknown as CustomRequest,
         mockResponse as Response,
         mockNext
       );
@@ -222,7 +236,7 @@ describe("Given a createPainting controller", () => {
       });
 
       await createPainting(
-        req as CustomRequest,
+        req as unknown as CustomRequest,
         mockResponse as Response,
         mockNext
       );

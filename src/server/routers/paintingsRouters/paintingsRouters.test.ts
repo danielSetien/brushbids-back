@@ -23,6 +23,19 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
+const mockDimensions = {
+  width: "200",
+  height: "200",
+};
+
+jest.mock("image-size", () => ({
+  __esModule: true,
+  default: jest.fn().mockReturnValue({
+    width: "200",
+    height: "200",
+  }),
+}));
+
 const paintingsEndpoint = "/paintings/";
 
 const painting = mockPaintings[0];

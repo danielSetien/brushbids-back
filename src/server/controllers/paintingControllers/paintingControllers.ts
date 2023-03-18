@@ -2,6 +2,7 @@ import "../../../loadEnvironments.js";
 import { type NextFunction, type Request, type Response } from "express";
 import fs from "fs/promises";
 import path from "path";
+import sizeOf from "image-size";
 import { Painting } from "../../../database/models/PaintingSchema.js";
 import { type CustomRequest } from "../../../types.js";
 import responses from "../../../utils/responses.js";
@@ -66,10 +67,20 @@ export const createPainting = async (
 
     const imageName = req.file?.filename;
 
+    const finalImageDimensions = {
+      width: "",
+      height: "",
+    };
+
     if (imageName) {
       const image = await fs.readFile(
         path.join(localStorageDirectory, imageName)
       );
+
+      const imageDimensions = sizeOf(image);
+
+      finalImageDimensions.width = imageDimensions.width!.toString();
+      finalImageDimensions.height = imageDimensions.height!.toString();
 
       await supabase.storage.from(bucketName).upload(imageName, image);
     }
@@ -80,13 +91,18 @@ export const createPainting = async (
 
     const image = imageUrl;
 
-    const newDatabasePainting = { ...newPainting, image };
+    const newDatabasePainting = {
+      ...newPainting,
+      image,
+      width: finalImageDimensions.width,
+      height: finalImageDimensions.height,
+    };
 
     await Painting.create(newDatabasePainting);
 
     res
       .status(responses.statusCode.created)
-      .json({ newPainting: { ...newPainting, image } });
+      .json({ newPainting: newDatabasePainting });
   } catch (error: unknown) {
     handlePaintingErrors(next, (error as Error).message);
   }

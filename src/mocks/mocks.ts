@@ -32,6 +32,8 @@ export const mockPaintings: Paintings = [
       "Colorful abstract painting with horizontal lines and curved shapes",
     image:
       "https://icqwpkxwddqofeibjqcj.supabase.co/storage/v1/object/public/paitings/paintingImage-random.jpg",
+    height: "200",
+    width: "200",
   },
   {
     author: "Charles Ray",
@@ -53,5 +55,7 @@ export const mockPaintings: Paintings = [
     summary: "Floral mural",
     image:
       "https://icqwpkxwddqofeibjqcj.supabase.co/storage/v1/object/public/paitings/charlesRayUntilted.png?t=2023-03-11T16%3A11%3A40.075Z",
+    height: "200",
+    width: "200",
   },
 ];

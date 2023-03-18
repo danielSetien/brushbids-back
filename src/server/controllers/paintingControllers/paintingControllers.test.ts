@@ -182,7 +182,15 @@ describe("Given a createPainting controller", () => {
       const req = {
         body: submittedPainting,
         file: {
-          filename: "haha salu2",
+          filename: "haha-salu2",
+        },
+      };
+
+      const expectedResponseBody = {
+        newPainting: {
+          ...mockPaintings[0],
+          image:
+            "https://icqwpkxwddqofeibjqcj.supabase.co/storage/v1/object/public/paitings/haha-salu2",
         },
       };
 
@@ -203,9 +211,7 @@ describe("Given a createPainting controller", () => {
         mockNext
       );
 
-      expect(mockResponse.json).toHaveBeenCalledWith({
-        newPainting: mockPaintings[0],
-      });
+      expect(mockResponse.json).toHaveBeenCalledWith(expectedResponseBody);
     });
   });
 

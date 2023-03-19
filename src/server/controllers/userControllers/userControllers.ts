@@ -34,11 +34,12 @@ export const loginUser = async (
       return;
     }
 
-    const { username } = user;
+    const { username, administrator } = user;
 
     const jwtPayload = {
       username,
       id: user._id,
+      administrator,
     };
 
     const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!, {

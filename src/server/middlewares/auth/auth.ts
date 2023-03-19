@@ -24,7 +24,7 @@ export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
     return;
   }
 
-  const token = req.header("Authorization"?.replace(/^Bearer\s*/, ""));
+  const token = req.header("Authorization")?.replace(/^Bearer\s*/i, "");
   try {
     const { username } = jwt.verify(
       token!,

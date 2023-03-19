@@ -21,3 +21,4 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_BUCKET: ${{ secrets.SUPABASE_BUCKET }}
           LOCAL_STORAGE_DIRECTORY: ${{ secrets.LOCAL_STORAGE_DIRECTORY }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}

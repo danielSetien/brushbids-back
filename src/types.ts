@@ -15,6 +15,7 @@ export interface UserCredentials {
 
 export interface UserStructure extends UserCredentials {
   username: string;
+  administrator: boolean;
 }
 
 export interface PaintingStructure {

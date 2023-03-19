@@ -1,15 +1,20 @@
 import request from "supertest";
 import mongoose from "mongoose";
 import crypto from "crypto";
+import jwt from "jsonwebtoken";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import connectDatabase from "../../../database/connectDatabase";
 import { app } from "../..";
 import { Painting } from "../../../database/models/PaintingSchema";
 import { mockPaintings } from "../../../mocks/mocks";
 import { deleteDatabaseInsertedUnpredictableProperties } from "../../../utils/testUtils";
-import { type MongoInsertManyReturnedValue } from "../../../types";
+import {
+  type MongoInsertManyReturnedValue,
+  type UserStructure,
+} from "../../../types";
 import { type SupertestPaintingRequestResponse } from "../../../utils/testUtils/types";
 import responses from "../../../utils/responses";
+import { User } from "../../../database/models/UserSchema";
 
 let server: MongoMemoryServer;
 
@@ -39,6 +44,34 @@ jest.mock("image-size", () => ({
 const paintingsEndpoint = "/paintings/";
 
 const painting = mockPaintings[0];
+
+const adminUserData: UserStructure = {
+  username: "SusanLongerBrests",
+  password: "adminadmin",
+  email: "admin@admin.com",
+  administrator: true,
+};
+
+let token: string;
+
+beforeEach(async () => {
+  await User.create(adminUserData);
+
+  const adminUser = await User.findOne({ username: adminUserData.username });
+
+  token = jwt.sign(
+    {
+      id: adminUser?._id,
+      username: adminUser?.username,
+      administrator: adminUser?.administrator,
+    },
+    process.env.JWT_SECRET!
+  );
+});
+
+afterEach(async () => {
+  await User.deleteMany();
+});
 
 describe("Given a GET paintings/ endpoint", () => {
   describe("When it receives a request to get a list of 2 paintings", () => {
@@ -112,6 +145,7 @@ describe("Given a DELETE paintings/ endpoint", () => {
 
       await request(app)
         .delete(`${paintingsEndpoint}${id as unknown as string}`)
+        .set("Authorization", `Bearer ${token}`)
         .expect(expectedStatusResponse);
     });
   });
@@ -130,6 +164,7 @@ describe("Given a POST paintings/ endpoint", () => {
 
       const response = await request(app)
         .post(createPaintingEndpoint)
+        .set("Authorization", `Bearer ${token}`)
         .field("author", "Mary Heilmann")
         .field("name", "New Line Up")
         .field("year", "2018")

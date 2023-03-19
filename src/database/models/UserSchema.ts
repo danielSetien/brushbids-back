@@ -15,6 +15,10 @@ export const UserSchema = new Schema({
     required: true,
     unique: true,
   },
+  administrator: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 export const User = model("user", UserSchema, "users");

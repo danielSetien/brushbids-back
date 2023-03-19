@@ -33,6 +33,7 @@ const mockUserCredentials: UserCredentials = {
 const mockUser: UserStructure = {
   ...mockUserCredentials,
   username: "FelixTheCat",
+  administrator: false,
 };
 
 describe("Given a POST users/login endpoint", () => {
@@ -50,6 +51,7 @@ describe("Given a POST users/login endpoint", () => {
         password: hashedPassword,
         email: mockUserCredentials.email,
         username: mockUser.username,
+        administrator: mockUser.administrator,
       };
 
       await User.create(userCreationRequest);
@@ -89,6 +91,7 @@ describe("Given a POST users/login endpoint", () => {
         password: hashedPassword,
         email: mockUserCredentials.email,
         username: mockUser.username,
+        administrator: mockUser.administrator,
       };
 
       await User.create(userCreationRequest);

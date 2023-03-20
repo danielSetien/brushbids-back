@@ -82,7 +82,12 @@ export const createPainting = async (
       finalImageDimensions.width = imageDimensions.width!.toString();
       finalImageDimensions.height = imageDimensions.height!.toString();
 
-      await supabase.storage.from(bucketName).upload(imageName, image);
+      await supabase.storage
+        .from(bucketName)
+        .upload(`uploads/${imageName}`, image, {
+          cacheControl: "31536000",
+          upsert: false,
+        });
     }
 
     const {

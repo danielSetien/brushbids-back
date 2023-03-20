@@ -28,11 +28,6 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-const mockDimensions = {
-  width: "200",
-  height: "200",
-};
-
 jest.mock("image-size", () => ({
   __esModule: true,
   default: jest.fn().mockReturnValue({

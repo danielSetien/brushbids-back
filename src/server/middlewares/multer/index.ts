@@ -20,6 +20,6 @@ const multerConfig = {
 export const upload = multer({
   ...multerConfig,
   limits: {
-    fileSize: 1024 * 1024 * 8,
+    fileSize: 1024 * 1024 * 6,
   },
 });

@@ -4,7 +4,7 @@ import path from "path";
 
 const multerConfig = {
   storage: multer.diskStorage({
-    destination: "uploads",
+    destination: "uploads/",
     filename(req, file, callback) {
       const suffix = crypto.randomUUID();
       const extension = path.extname(file.originalname);
@@ -20,6 +20,6 @@ const multerConfig = {
 export const upload = multer({
   ...multerConfig,
   limits: {
-    fileSize: 1024 * 1024 * 6,
+    fileSize: 8000000,
   },
 });

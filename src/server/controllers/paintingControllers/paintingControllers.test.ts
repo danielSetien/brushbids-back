@@ -1,6 +1,5 @@
 import { type Response } from "express";
 import fs from "fs/promises";
-import sizeOf from "image-size";
 import { CustomError } from "../../../CustomError/CustomError";
 import { Painting } from "../../../database/models/PaintingSchema";
 import {

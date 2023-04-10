@@ -12,8 +12,9 @@ app.disable("x-powered-by");
 
 const localUrl = process.env.LOCAL_URL!;
 const productionUrl = process.env.PRODUCTION_URL!;
+const altProductionUrl = process.env.ALT_PRODUCTION_URL!
 
-const allowedOrigins = [localUrl, productionUrl];
+const allowedOrigins = [localUrl, productionUrl, altProductionUrl];
 
 const corsOptions: cors.CorsOptions = {
   origin: allowedOrigins,
